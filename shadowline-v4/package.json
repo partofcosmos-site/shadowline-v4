@@ -1,0 +1,27 @@
+{
+  "name": "shadowline-v4",
+  "private": true,
+  "version": "4.0.0",
+  "type": "module",
+  "scripts": {
+    "data": "python scripts/build_paired_ldem_sdem.py",
+    "test:science": "python -m pytest scripts/test_scientific_pipeline.py -v",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "audit:ui": "node scripts/audit_dom_overflow.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "playwright": "^1.48.0",
+    "pptxgenjs": "^4.0.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.2"
+  }
+}
