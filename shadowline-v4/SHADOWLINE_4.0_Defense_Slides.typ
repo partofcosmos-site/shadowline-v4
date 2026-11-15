@@ -152,7 +152,7 @@
       #text(weight: "bold", size: 9.5pt, fill: slate-800)[Team Roster & Roles]
       #v(3pt)
       *Team: Obsidian Cosmos / Part of Cosmos*
-      - *Debanjan Biswas*: Planetary Geodesy, Ray-Tracing Algorithms, Horizon Profiling & Horizon Horizon Reconstruction
+      - *Debanjan Biswas*: Planetary Geodesy, Ray-Tracing Algorithms, Horizon Profiling & Horizon Reconstruction
       - *Co-Investigator*: Mathematical Modeling, Photometric Cross-Validation & Telemetry Studio Engineering
       
       #v(4pt)
