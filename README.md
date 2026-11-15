@@ -68,8 +68,8 @@ pytest tests/ -v
 
 ## Team Roster (Obsidian Cosmos / Part of Cosmos)
 
-* **Debanjan Biswas** ([@partofcosmos-site](https://github.com/partofcosmos-site)) — Planetary Geodesy, Ray-Tracing Algorithms, Horizon Profiling & Horizon Reconstruction.
-* **Co-Investigator** — Mathematical Modeling, Photometric Cross-Validation & Telemetry Studio Engineering.
+* **Debanjan Biswas** ([@partofcosmos-site](https://github.com/partofcosmos-site)) — Lead Systems Architect, Planetary Geodesy, Ray-Tracing Engine, Horizon Profiling & Ephemeris Pipeline.
+* **Aryan Anand** ([@AryanAnand-dev](https://github.com/AryanAnand-dev)) — Co-Lead, Astrodynamics Modeling, Topographic Slope Constraints, Energy Budget Simulation & Scientific Validation.
 
 ---
 
