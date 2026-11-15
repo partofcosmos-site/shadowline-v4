@@ -153,7 +153,7 @@
       #v(3pt)
       *Team: Obsidian Cosmos / Part of Cosmos*
       - *Debanjan Biswas*: Planetary Geodesy, Ray-Tracing Algorithms, Horizon Profiling & Horizon Reconstruction
-      - *Co-Investigator*: Mathematical Modeling, Photometric Cross-Validation & Telemetry Studio Engineering
+      - *Aryan Anand*: Mathematical Modeling, Photometric Cross-Validation & Telemetry Studio Engineering
       
       #v(4pt)
       #line(length: 100%, stroke: 0.5pt + slate-300)
