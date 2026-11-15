@@ -1,55 +1,83 @@
-# PROVENANCE & SCIENTIFIC CITATIONS
-## SHADOWLINE 4.0: Lunar Landing Site Navigator
-**Artemis III Candidate Region A3CLR22-#6: Connecting Ridge**
+# Data Provenance and Scientific Scope
+## SHADOWLINE 4.0 — Lunar South Pole Illumination & Decision-Sensitivity Navigator
 
----
+This document distinguishes scientific reference resources from data and calculations actually used by the current public prototype.
 
-### 1. Digital Elevation Models (DEMs)
+## 1. NASA terrain reference products
 
-#### A. NASA LOLA LDEM (Product 78)
-- **Dataset Title:** LOLA Polar DEM 20m/pixel (LDEM_875S_20M)
-- **Primary Reference:** Barker, M. K., Mazarico, E., Neumann, G. A., Zuber, M. T., Haruyama, J., & Smith, D. E. (2021). *A New Lunar Digital Elevation Model from the Lunar Orbiter Laser Altimeter and Lunar Reconnaissance Orbiter Camera*. Planetary and Space Science, 203, 105263.
-- **Repository / Product ID:** NASA Planetary Geosciences Data Archive (PGDA) Product 78
-- **Coverage & Resolution:** 20 meters/pixel polar stereographic grid centered at South Pole (87.5°S to 90.0°S).
-- **Measurement Origin:** Multi-beam laser altimeter time-of-flight profiles.
+### NASA GSFC PGDA Product 78 — LOLA South Pole Elevation Model
 
-#### B. LROC SDEM (Product 104)
-- **Dataset Title:** LROC Narrow Angle Camera (NAC) Stereo Digital Elevation Models for Artemis III Candidate Landing Sites
-- **Primary Reference:** Bertone, S., Barker, M. K., Mazarico, E., Henriksen, M. R., & Robinson, M. S. (May 2026). *High-Resolution Stereophotogrammetric Digital Elevation Models of Lunar South Polar Artemis III Landing Sites*. Planetary and Space Science / Earth and Space Science.
-- **Permanent DOI / Archive:** [https://doi.org/10.5281/zenodo.17954508](https://doi.org/10.5281/zenodo.17954508)
-- **Repository / Product ID:** NASA PGDA Product 104 / Zenodo 17954508
-- **Coverage & Resolution:** 5 meters/pixel photogrammetric stereopairs with sub-meter vertical precision.
+Official product page: https://pgda.gsfc.nasa.gov/products/78
 
----
+Product 78 provides LOLA-derived lunar south-polar elevation products and associated ancillary layers. It is a principal reference for the project's intended laser-altimetry terrain workflow.
 
-### 2. Ephemeris & Geodesic Ray-Marching Formulation
+**Current implementation status:** The checked-in builder does not load the original Product 78 GeoTIFF files. Product 78 is cited as a scientific reference; the current scenario bundle is generated from parameterised synthetic terrain.
 
-#### A. Lunar Ephemeris
-- **Reference Frame:** Moon PA440 (Principal Axes frame) and Moon ME421 (Mean Earth / Polar Axis frame).
-- **Ephemeris Engine:** JPL DE440 / DE441 Solar System Ephemeris & Lunar Libration solutions.
-- **Solar Angular Semi-Diameter:**
-  $$\alpha_\odot(t) = \arcsin\left(\frac{R_\odot}{d_\odot(t)}\right) \approx 0.266^\circ$$
+### NASA GSFC PGDA Product 104 — LROC NAC Shape-from-Shading Elevation Model
 
-#### B. Uniform-Disc Circular-Segment Solar Fraction
-For solar centre elevation $\theta_\odot$, solar semi-diameter $\alpha_\odot$, and local horizon elevation $\theta_{\text{hor}}(\phi_\odot)$:
-- If $\theta_\odot \le \theta_{\text{hor}} - \alpha_\odot$: $F_{\text{disc}} = 0$ (Total Occultation).
-- If $\theta_\odot \ge \theta_{\text{hor}} + \alpha_\odot$: $F_{\text{disc}} = 1$ (Full Unocculted Disc).
-- Otherwise (Partial disc):
-  $$d = \frac{\theta_{\text{hor}} - \theta_\odot}{\alpha_\odot} \in [-1, 1]$$
-  $$F_{\text{disc}} = \frac{1}{\pi} \left( \arccos(d) - d \sqrt{1 - d^2} \right)$$
+Official product page: https://pgda.gsfc.nasa.gov/products/104
 
-#### C. Normalized Geometric Solar Incidence Potential
-$$P_{\text{norm}}(t) = F_{\text{disc}}(t) \cdot \max(0, \mathbf{n} \cdot \mathbf{s}(t))$$
-- Mode 1: Vertical polar mast ($\theta_n = 0^\circ$ elevation pointing toward solar azimuth): $\max(0, \cos \theta_\odot)$.
-- Mode 2: Horizontal horizontal pad ($\mathbf{n}$ is local zenith): $\max(0, \sin \theta_\odot)$.
+Product 104 provides LROC NAC-derived south-polar Shape-from-Shading elevation products. Its processing is tied to an a priori LOLA terrain model and retains the LOLA geodetic reference. It should therefore be described as a complementary optical terrain reconstruction, not as a wholly independent measurement from LOLA.
 
----
+Related archive: https://doi.org/10.5281/zenodo.17954508
 
-### 3. Rigorous Three-State Decision Logic
-The decision function $V \in \{\text{PASS}, \text{FAIL}, \text{UNKNOWN}\}$ strictly avoids heuristic guesses:
-- **`PASS`:** Total sunlit fraction $\ge 85\%$ of the 156-hour surface stay AND maximum consecutive darkness $\le 16$ hours.
-- **`FAIL`:** Total sunlit fraction $< 85\%$ OR maximum consecutive darkness $> 16$ hours.
-- **`UNKNOWN`:** Observer pin lies outside the SDEM bounding footprint OR ray-marching path traverses unmapped nodata sectors.
-- **Decision Reversal:**
-  $$\mathcal{D}(i, t) = \mathbb{I}\left(V_{\text{LDEM}}(i, t) \ne V_{\text{SDEM}}(i, t)\right)$$
+**Current implementation status:** The checked-in builder does not load the original Product 104 GeoTIFF files. Product 104 is cited as a scientific reference; the current scenario bundle is generated from parameterised synthetic terrain.
 
+## 2. Current computational data provenance
+
+The current public application loads a precomputed JSON scenario bundle. The checked-in Python builder constructs deterministic, parameterised terrain surfaces and derives paired horizon and scenario data from those synthetic surfaces.
+
+Accordingly:
+
+- The terrain surfaces in the current demonstration are synthetic.
+- The paired terrain comparison demonstrates a computational workflow; it is not a measured Product 78 versus Product 104 raster comparison.
+- Scenario-specific terrain differences, horizon obstructions, illumination intervals and decision reversals are outputs of the synthetic benchmark.
+- Such outputs must not be presented as empirical discoveries from NASA source rasters.
+
+## 3. Ephemeris provenance
+
+The checked-in scenario-generation code uses mathematical trajectories to populate the demonstration bundle. It does not currently issue live requests to the JPL Horizons API and does not demonstrate an integrated NAIF SPICE-kernel workflow.
+
+Reference resources for future independently validated ephemeris integration:
+
+- NASA JPL Horizons: https://ssd.jpl.nasa.gov/horizons/
+- NASA Navigation and Ancillary Information Facility (NAIF): https://naif.jpl.nasa.gov/naif/
+
+These are reference resources, not claims of current runtime integration.
+
+## 4. Coordinate and geometry conventions
+
+The prototype uses geometric terrain-horizon calculations, spherical geometry and local observer-relative coordinate transformations. Any future integration of source rasters or external ephemerides must explicitly document:
+
+- Source coordinate reference systems and map projections.
+- Lunar body-fixed frame and orientation model.
+- Time scale and ephemeris version.
+- Raster registration, pixel spacing, nodata treatment and interpolation.
+- Observer location and height conventions.
+- Solar-disc and surface-panel orientation assumptions.
+
+No specific live ephemeris correction or external frame-conversion validation is claimed by the current synthetic benchmark.
+
+## 5. Decision classifications
+
+The application exposes PASS, FAIL and UNKNOWN states and identifies disagreement between paired model assessments. This is a three-state decision scheme. The implementation should not be described as a complete formal implementation of Strong Kleene three-valued logic unless that algebra is explicitly implemented and tested.
+
+A model disagreement indicates sensitivity to the compared representations; it does not by itself establish which representation is more accurate or whether a site is operationally safe.
+
+## 6. Validation status and limitations
+
+The repository contains four pytest test functions addressing analytical properties of the synthetic pipeline, including spherical-horizon behaviour, synthetic ridge geometry, azimuthal sampling and JSON bundle structure.
+
+These tests do not establish:
+
+- Successful ingestion or validation of original NASA terrain rasters.
+- Agreement with live JPL Horizons or NAIF SPICE outputs.
+- Empirical confirmation of any specific lunar blackout duration or ridge measurement.
+- Complete radio-frequency communications availability.
+- Mission-grade landing-site safety.
+
+## 7. Planned validation pathway
+
+Future work should replace the synthetic benchmark with documented NASA raster inputs, preserve source metadata, validate coordinate transformations and independently reproduce ephemerides. Terrain-model uncertainty should then be propagated through horizon, illumination and visibility calculations before quantitative conclusions are described as empirical.
+
+**Provenance principle:** SHADOWLINE distinguishes reference data, synthetic demonstration inputs, computed outputs and future integrations. This distinction is necessary for reproducible and scientifically responsible interpretation.
