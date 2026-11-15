@@ -4,3 +4,11 @@ __pycache__/
 dist/
 .DS_Store
 *.log
+*.tmp
+*.zip
+*.tar.gz
+notebooklm_staging/
+user_zip_review/
+.venv/
+env/
+venv/
