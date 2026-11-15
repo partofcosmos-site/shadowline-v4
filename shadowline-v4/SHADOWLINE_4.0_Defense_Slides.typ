@@ -7,8 +7,16 @@
 
 #set page(
   paper: "presentation-16-9",
-  margin: (x: 16mm, top: 11mm, bottom: 12mm),
-  fill: rgb("#fcfbf9") // Warm bone daylight canvas
+  margin: (x: 16mm, top: 10mm, bottom: 13mm),
+  fill: rgb("#fcfbf9"),
+  footer: [
+    #grid(
+      columns: (1fr, 1fr),
+      align: (left, right),
+      text(size: 6pt, fill: rgb("#94a3b8"))[SHADOWLINE 4.0 | NASA Space Apps Challenge 2026 | Team Obsidian Cosmos (Debanjan Biswas & Aryan Anand)],
+      text(size: 6pt, fill: rgb("#94a3b8"))[SI Tool Use Disclosed (Gemini 4 Argon / Claude) · Independent PDS/PGDA Compliant Submission]
+    )
+  ]
 )
 
 #set text(
@@ -426,6 +434,7 @@
       - *Zero-Installation Web Studio*: Runs directly in modern desktop and mobile browsers with zero cloud configuration.
       - *Formal Research Publication*: Comprehensive scientific manuscript in IEEE/AIAA two-column format detailing all geodetic derivations.
       - *NASA Planetary Data System Compatibility*: Seamlessly ingests standardized GeoTIFF tiles from PGDA 78 and PGDA 104.
+      - *SI & AI Tool Use Disclosure*: Generative AI (Gemini 4 Argon & Claude) utilized for mathematical synthesis, code architecture, and analytical drafting under NASA Space Apps Guidelines. Zero NASA logos/trademarks generated.
       
       #v(6pt)
       #align(center)[
