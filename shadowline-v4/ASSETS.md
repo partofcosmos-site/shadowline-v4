@@ -1,72 +1,52 @@
-# SHADOWLINE 4.0: Master Asset & Deliverables Catalog
-**NASA International Space Apps Challenge 2026**
-**Project:** SHADOWLINE 4.0 — Lunar Landing Site Navigator
-**Author / Team:** NASA Space Apps Challenge 2026 Core Engineering Team
-**Generated UTC:** 2026-11-14T19:54:00Z
-**Repository Location:** `c:\Users\white\master-hub\Nasa Space App Challenge\shadowline-v4`
+# Repository Assets and Implementation Inventory
+## SHADOWLINE 4.0
 
----
+This inventory describes the principal source files and capabilities present in the public repository. It does not treat local machine paths, untracked working files or planned integrations as publicly available deliverables.
 
-## 1. Executive Presentation & Defense Assets
+## 1. Application source
 
-| File Name | Format | Size | Description | Verified Status |
-| :--- | :--- | :--- | :--- | :--- |
-| [`SHADOWLINE_4.0_Defense_Slides.pdf`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/SHADOWLINE_4.0_Defense_Slides.pdf) | PDF (16:9) | 745 KB | 10-slide master defense deck compiled with Typst 0.15.1. Strictly adheres to Dieter Rams Daylight design tokens, anti-slop guidelines, and aerospace telemetry palettes. | **PASS** (`defects_found: 0` via `pdf-qa`) |
-| [`SHADOWLINE_4.0_Defense_Slides.typ`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/SHADOWLINE_4.0_Defense_Slides.typ) | Typst Source | 23.7 KB | Source markup containing layout geometry, typographic parameters, and vector math callouts for the 10-slide deck. | Validated |
-| [`SHADOWLINE_4.0_NASA_Defense_Deck.pptx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/SHADOWLINE_4.0_NASA_Defense_Deck.pptx) | PowerPoint | 141 KB | Editable 16:9 presentation deck built via PptxGenJS for live judging review. | Validated |
+| Path | Purpose |
+|---|---|
+| `src/App.tsx` | Main React application and primary workspace composition. |
+| `src/engine/decisionSensitivityEngine.ts` | PASS / FAIL / UNKNOWN decision classification and comparison logic. |
+| `src/components/DualHorizonPanorama.tsx` | Canvas-based dual horizon visualisation. |
+| `src/components/TerrainDiffInspector.tsx` | Terrain-difference grid visualisation. |
+| `src/components/TimelineComparison.tsx` | Scenario timeline comparison. |
+| `src/components/ProvenanceValidateView.tsx` | Provenance and methodological information view. |
+| `src/types/shadowline.ts` | TypeScript data and application type definitions. |
+| `public/data/shadowline_v4_bundle.json` | Precomputed scenario data consumed by the frontend. |
 
----
+## 2. Scientific processing and tests
 
-## 2. High-Resolution Visualizations & Figures (`artifacts/`)
+| Path | Purpose |
+|---|---|
+| `scripts/build_paired_ldem_sdem.py` | Builds the deterministic synthetic paired-terrain benchmark and precomputed scenario bundle. |
+| `scripts/test_scientific_pipeline.py` | Four pytest test functions for analytical properties of the synthetic pipeline. |
+| `scripts/requirements.txt` | Python dependency declarations for the processing environment. |
 
-| File Name | Format | Resolution | Description |
-| :--- | :--- | :--- | :--- |
-| [`horizon_comparison_cr01.png`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/artifacts/horizon_comparison_cr01.png) | PNG (300 DPI) | 3000 × 1020 | Dual horizon profile overlay contrasting LOLA LDEM (240m) vs LROC SDEM (5m) with the Nov 2026 Sun trajectory at Connecting Ridge (CR-01). Highlights the occulting +4.95m micro-ridge at Az 72.5°. |
-| [`terrain_diff_heatmap.png`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/artifacts/terrain_diff_heatmap.png) | PNG (300 DPI) | 1650 × 1320 | 320m × 320m co-registered elevation residual grid ($SDEM - LDEM$) centered on the CR-01 touchdown coordinate. |
-| [`height_sensitivity_curve.png`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/artifacts/height_sensitivity_curve.png) | PNG (300 DPI) | 1800 × 1140 | Horizon obstruction elevation angle vs. observer mast height ($0.5\text{m}$ to $12.0\text{m}$) proving illumination recovery at 10.0m. |
-| [`kleene_decision_matrix.png`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/artifacts/kleene_decision_matrix.png) | PNG (300 DPI) | 2100 × 960 | Kleene $K_3$ 3-valued decision sensitivity matrix mapping multi-model outcomes into operational directives (`INVARIANT_PASS`, `DECISION_REVERSED`, `INVARIANT_FAIL`, `UNKNOWN`). |
-| `slide_01.png` — `slide_10.png` | PNG (150 DPI) | 1754 × 986 | Visual raster audit proofs for all 10 defense slides inspected during closed-loop visual QA. |
+**Data limitation:** The current builder constructs parameterised synthetic terrain. It does not directly ingest the original NASA Product 78 or Product 104 GeoTIFF rasters. The generated bundle should therefore be understood as a synthetic demonstration dataset.
 
----
+## 3. Presentation and documentation
 
-## 3. Scientific Data & Engine Core
+The repository includes project documentation and presentation-related source assets. Consult the repository tree for the exact files currently committed. Local file-system paths and files not present in the public repository are not public deliverables.
 
-| File Name | Location | Description |
-| :--- | :--- | :--- |
-| [`shadowline_v4_bundle.json`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/public/data/shadowline_v4_bundle.json) | `public/data/` | 684 KB static pre-computed science bundle containing paired horizon sweeps, JPL Horizons ephemeris, 64×64 residual grid, and validation summaries. |
-| [`decisionSensitivityEngine.ts`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/engine/decisionSensitivityEngine.ts) | `src/engine/` | Kleene $K_3$ 3-valued decision sensitivity logic engine, battery blackout margin calculator, and automated orbital reconnaissance trigger. |
-| [`shadowline.ts`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/types/shadowline.ts) | `src/types/` | Strict TypeScript interface definitions for pins, ephemeris, horizons, and decision states. |
+## 4. Implemented technology
 
----
+- React 18
+- TypeScript 5
+- Vite 5
+- Python
+- NumPy and SciPy
+- HTML Canvas 2D and CSS
+- JSON scenario data
+- Pytest
 
-## 4. Interactive Web Application (`src/`)
+The current application does not implement a Three.js/WebGL rendering engine, live JPL Horizons queries or a NAIF SPICE ephemeris pipeline.
 
-| File Name | Purpose |
-| :--- | :--- |
-| [`App.tsx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/App.tsx) | Main React mission cockpit integrating the 3 primary operational views, pin selectors, and hostile judge audit cards. |
-| [`DualHorizonPanorama.tsx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/components/DualHorizonPanorama.tsx) | HTML5 Canvas rendering engine for paired LOLA LDEM vs LROC SDEM horizon overlays and animated solar disc positioning. |
-| [`TerrainDiffInspector.tsx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/components/TerrainDiffInspector.tsx) | 2D/3D Canvas shader for micro-topographic elevation difference grids and local gradient vectors. |
-| [`TimelineComparison.tsx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/components/TimelineComparison.tsx) | Continuous solar illumination timeline with sub-hour blackout countdown and battery deficit alerts. |
-| [`ProvenanceValidateView.tsx`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/components/ProvenanceValidateView.tsx) | Data provenance inspector showing PDS Node metadata, Zenodo DOIs, and pytest validation receipts. |
-| [`index.css`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/src/index.css) | Dieter Rams Daylight CSS tokens, high-density telemetry styles, and responsive layout classes. |
+## 5. Verification scope
 
----
+The included pytest module contains four test functions covering synthetic horizon geometry, ridge-obstruction behaviour, azimuthal sampling and bundle structure. These tests are scoped to the synthetic benchmark and do not constitute validation against original NASA rasters or mission-grade ephemerides.
 
-## 5. Verification & Build Tooling (`scripts/`)
+## 6. Future development
 
-| File Name | Purpose | Output / Status |
-| :--- | :--- | :--- |
-| [`test_scientific_pipeline.py`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/scripts/test_scientific_pipeline.py) | 4-gate automated numerical test suite verifying spherical horizon dip, synthetic ridge occultation, azimuth convergence, and JSON schema. | **4 PASSED** in 0.51s via pytest |
-| [`audit_dom_overflow.mjs`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/scripts/audit_dom_overflow.mjs) | Playwright headless Chromium DOM layout inspector verifying zero horizontal scrollbar overflow and valid canvas rendering. | **PASS** (Zero overflow, valid canvas) |
-| [`build_paired_ldem_sdem.py`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/scripts/build_paired_ldem_sdem.py) | Python ray-marching pipeline compiling paired DEM rasters, multi-height profiles (1m, 2m, 10m), and ephemeris into the web bundle. | Generated deterministic bundle in 3.4s |
-| [`build_defense_deck.mjs`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/scripts/build_defense_deck.mjs) | Node.js script generating the presentation deck via PptxGenJS. | Generated 141 KB deck |
-
----
-
-## 6. Documentation & Challenge Submission
-
-| File Name | Purpose |
-| :--- | :--- |
-| [`PROVENANCE.md`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/PROVENANCE.md) | Formal scientific data ledger documenting NASA LOLA PDS archives, Zenodo Record 17954508, coordinate reference frames, and competitor comparisons. |
-| [`README.md`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/shadowline-v4/README.md) | Project overview, quickstart instructions, scientific background, and operational guide for judges and users. |
-| [`.gitignore`](file:///c:/Users/white/master-hub/Nasa%20Space%20App%20Challenge/.gitignore) | Git exclusions preventing temporary caches, node_modules, and dist bundles from polluting commits. |
+Planned technical extensions include direct ingestion of NASA terrain rasters, independent ephemeris integration, explicit uncertainty propagation and validation against external lunar observations. These are future objectives, not claims about the current implementation.
